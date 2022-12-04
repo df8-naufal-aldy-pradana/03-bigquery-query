@@ -5,7 +5,7 @@ SELECT
   SUM(totals_transactions) AS trx_per_date
 FROM 
   `data-to-insights.ecommerce.rev_transactions`
-GROUP BY channelGrouping, date
+GROUP BY channelGrouping, parsed_date
 ),transaction_per_country AS (
 SELECT
   channelGrouping, 
@@ -29,3 +29,4 @@ FROM transaction_per_date trxdate
 INNER JOIN transaction_per_country trxcountry
 ON trxdate.channelGrouping = trxcountry.channelGrouping AND trxdate.parsed_date = trxcountry.parsed_date
 GROUP BY channelGrouping, parsed_date, trx_per_date
+ORDER BY trx_per_date DESC
